@@ -1,4 +1,4 @@
-(in-package #:cbor)
+(in-package #:cl-dasl)
 
 ;;; shared value utilities
 ;;; http://cbor.schmorp.de/value-sharing

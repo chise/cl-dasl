@@ -1,4 +1,4 @@
-(in-package #:cbor)
+(in-package #:cl-dasl)
 
 ;;; stringref utilities
 ;;; http://cbor.schmorp.de/stringref

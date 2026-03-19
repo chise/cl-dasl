@@ -1,4 +1,4 @@
-(in-package #:cbor)
+(in-package #:cl-dasl)
 
 (declaim (type fixnum *buffer-size*))
 (defparameter *buffer-size* (* 64 1024))

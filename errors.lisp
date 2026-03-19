@@ -1,4 +1,4 @@
-(in-package #:cbor)
+(in-package #:cl-dasl)
 
 (define-condition cbor-error (error)
   ((text :initarg :text :reader error-text)

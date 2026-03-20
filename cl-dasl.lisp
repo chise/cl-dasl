@@ -1,6 +1,6 @@
-;;;; cbor.lisp
+;;;; cl-dasl.lisp
 
-(in-package #:cbor)
+(in-package #:cl-dasl)
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (deftype raw-data () '(simple-array (unsigned-byte 8) 1))
@@ -23,6 +23,7 @@
 (defconstant +tag-stringref+ 25)
 (defconstant +tag-shareable+ 28)
 (defconstant +tag-sharedref+ 29)
+(defconstant +tag-drisl-cid+ 42)
 (defconstant +tag-stringref-namespace+ 256)
 
 (defconstant +tag-cbor+ 55799)
@@ -38,7 +39,7 @@
 various Common Lisp types that are not defined in the core CBOR spec.
 A decoder must support these types for proper de-serialization.")
 
-(defparameter *use-stringrefs* t
+(defparameter *use-stringrefs* nil
   "Wether to use the stringrefs extension for encoding
 (http://cbor.schmorp.de/stringref). Decoding always supports
 it, if it encounters the tag.")

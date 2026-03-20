@@ -1,20 +1,23 @@
-;;;; cbor.asd
+;;;; cl-dasl.asd
 
-(asdf:defsystem #:cbor
-  :description "CBOR encoder/decoder"
-  :author "Mihai Bazon <mihai.bazon@gmail.com>"
+(asdf:defsystem #:cl-dasl
+  :description "DASL encoder/decoder"
+  :author "Mihai Bazon <mihai.bazon@gmail.com> and Tomohiko Morioka"
   :license  "MIT"
   :version "0.0.1"
   :serial t
   :depends-on (#:trivial-utf-8
                #:ieee-floats
                #:local-time
-               #:closer-mop)
+               #:closer-mop
+	       #:ironclad
+	       #:cl-base32)
   :components ((:file "package")
-               (:file "cbor")
+               (:file "cl-dasl")
                (:file "errors")
                (:file "stringref")
                (:file "circular")
                (:file "memstream")
-               (:file "encode")
-               (:file "decode")))
+               (:file "cid")
+               (:file "encode" :depends-on ("cid"))
+               (:file "decode" :depends-on ("cid"))))

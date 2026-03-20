@@ -1,8 +1,13 @@
 ;;;; package.lisp
 
-(defpackage #:cbor
+(defpackage #:cl-dasl
+  (:nicknames :dasl :ipld)
   (:use #:cl)
-  (:export #:encode #:decode
+  (:export #:generate-cid
+           #:base32-cid-to-binary-cid
+	   #:binary-cid-to-base32-cid
+	   #:dCBOR42-decode
+	   #:encode #:decode
            #:encode-object
            #:*jsown-semantics*
            #:*array-format*

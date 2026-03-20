@@ -1,4 +1,4 @@
-(in-package #:cbor)
+(in-package #:cl-dasl)
 
 (defun encode (value &key (stringrefs *use-stringrefs*))
   (let ((output (make-memstream)))
@@ -191,10 +191,29 @@
   (declare (type list value)
            (type memstream output)
            #.*optimize*)
-  (with-dictionary (output (length value))
-    (loop for (key . val) in value
-          do (%encode key output)
-             (%encode val output))))
+  (cond
+    ((or (equal (caar value) "/")
+	 (equal (format nil "~a" (caar value)) "/"))
+     (let ((seq (base32-cid-to-binary-cid (cdar value))))
+       (write-tag 6 42 output)
+       (encode-binary seq output))
+     )
+    (t
+     (let ((sv (sort
+		(mapcar (lambda (cell)
+			  (cons (format nil "~a" (car cell))
+				(cdr cell)))
+			value)
+	    	(lambda (a b)
+		  (or (< (length (car a))
+			 (length (car b)))
+		      (and (= (length (car a))
+			      (length (car b)))
+			   (string< (car a)(car b))))))))
+       (with-dictionary (output (length value))
+	 (loop for (key . val) in sv
+               do (%encode key output)
+		  (%encode val output)))))))
 
 (defun encode-character (char output)
   (declare (type character char)
@@ -237,16 +256,17 @@
      (if (typep (cdr value) 'raw-data)
          (encode-binary (cdr value) output)
          (encode-binary (encode (cdr value)) output)))
+    ((and (every #'consp value)
+          ;; (some (lambda (cell)
+          ;;         (not (listp (cdr cell))))
+          ;;       value)
+	  )
+     (encode-alist value output))
     (*strict*
      (encode-list* value output))
     ((and *jsown-semantics*
           (eq :obj (car value)))
      (encode-alist (cdr value) output))
-    ((and (every #'consp value)
-          (some (lambda (cell)
-                  (not (listp (cdr cell))))
-                value))
-     (encode-alist value output))
     (t
      (write-tag 4 (length value) output)
      (loop for val in value do (%encode val output)))))

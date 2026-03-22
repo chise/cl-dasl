@@ -11,7 +11,8 @@
                #:local-time
                #:closer-mop
 	       #:ironclad
-	       #:cl-base32)
+	       #:cl-base32
+	       #:named-readtables)
   :components ((:file "package")
                (:file "cl-dasl")
                (:file "errors")

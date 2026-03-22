@@ -2,6 +2,8 @@
 
 (in-package #:cl-dasl)
 
+(named-readtables:defreadtable dasl (:case :preserve))
+
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (deftype raw-data () '(simple-array (unsigned-byte 8) 1))
   (defparameter *optimize* '(optimize speed (safety 1) (space 0) (debug 0)))
@@ -34,7 +36,7 @@
 (defconstant +tag-character+ 282)
 (defconstant +tag-object+ 283)
 
-(defparameter *strict* t
+(defparameter *strict* nil
   "Strict mode: use the custom tags above for precise serialization of
 various Common Lisp types that are not defined in the core CBOR spec.
 A decoder must support these types for proper de-serialization.")
@@ -65,8 +67,8 @@ the empty array will be NIL in this case.")
 (defparameter *symbol-to-string*
   (lambda (symbol)
     (declare #.*optimize*)
-    (string-downcase
-     (substitute #\_ #\- (symbol-name symbol))))
+    (let ((*readtable* (named-readtables:find-readtable 'dasl)))
+      (format nil "~a" symbol)))
   "A function that converts symbols to strings. If bound to NIL while
 encoding, `symbol-name' will be used instead.")
 

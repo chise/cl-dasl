@@ -1,0 +1,49 @@
+2026-03-22  MORIOKA Tomohiko  <tomo.git@chise.org>
+
+	* cl-dasl.lisp: Define readtable for `dasl' to preserve case.
+	(*strict*): Changed to nil.
+	(*symbol-to-string*): Preserve case.
+
+	* cl-dasl.asd (depends-on): Add `named-readtables'.
+
+2026-03-20  MORIOKA Tomohiko  <tomo.git@chise.org>
+
+	* cl-dasl.lisp: Modify for cl-dasl.
+	(+tag-drisl-cid+): New constant.
+	(*use-stringrefs*): Change default value to nil.
+
+	* encode.lisp: Modify for cl-dasl.
+	(encode-alist): Modify for DRISL.
+	(encode-list): Modify for DRISL.
+
+	* cl-dasl.asd: Modify for cl-dasl.
+
+	* cid.lisp: New file [copied from cl-ipld/].
+
+	* decode.lisp: Use `cl-dasl' instead of `cbor'.
+	(read-tagged): Add setting for `+tag-drisl-cid+'.
+
+	* package.lisp: Modify for cl-dasl.
+
+2026-03-19  MORIOKA Tomohiko  <tomo.git@chise.org>
+
+	* stringref.lisp: Use `cl-dasl' instead of `cbor'.
+
+	* memstream.lisp: Use `cl-dasl' instead of `cbor'.
+
+	* errors.lisp: Use `cl-dasl' instead of `cbor'.
+
+	* circular.lisp: Use `cl-dasl' instead of `cbor'.
+
+	* cl-dasl-tests.asd: Use `cl-dasl' instead of `cbor'.
+
+2026-03-19  MORIOKA Tomohiko  <tomo.git@chise.org>
+
+	* cl-dasl-tests.asd: Renamed from cbor-tests.asd.
+
+2026-03-19  MORIOKA Tomohiko  <tomo.git@chise.org>
+
+	* Renamed.
+
+	R100	cbor.asd	cl-dasl.asd
+	R100	cbor.lisp	cl-dasl.lisp

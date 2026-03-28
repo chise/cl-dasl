@@ -377,7 +377,7 @@
     (#.+tag-shareable+ (with-decode-shareable (%decode-no-shareable input)))
     (#.+tag-ratio+ (read-ratio input))
     (#.+tag-complex+ (read-complex input))
-    (#.+tag-drisl-cid+ (binary-cid-to-base32-cid data))
+    (#.+tag-drisl-cid+ (binary-cid-to-base32-cid input))
     (#.+tag-symbol+ (read-symbol input))
     (#.+tag-list+ (read-list* input))
     (#.+tag-character+ (read-character input))

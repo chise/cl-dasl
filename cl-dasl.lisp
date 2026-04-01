@@ -46,7 +46,7 @@ A decoder must support these types for proper de-serialization.")
 (http://cbor.schmorp.de/stringref). Decoding always supports
 it, if it encounters the tag.")
 
-(defparameter *use-sharedrefs* t
+(defparameter *use-sharedrefs* nil
   "Wether to use the shared value extension for
 encoding (http://cbor.schmorp.de/value-sharing). Decoding always
 supports it if it encounters the tags.")

@@ -201,7 +201,9 @@
     (t
      (let ((sv (sort
 		(mapcar (lambda (cell)
-			  (cons (format nil "~a" (car cell))
+			  (cons (if (car cell)
+				    (format nil "~a" (car cell))
+				    "null")
 				(cdr cell)))
 			value)
 	    	(lambda (a b)
@@ -262,6 +264,9 @@
           ;;       value)
 	  )
      (encode-alist value output))
+    ((plist-p value)
+     (encode-alist (plist-to-alist value) output)
+     )
     (*strict*
      (encode-list* value output))
     ((and *jsown-semantics*

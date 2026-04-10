@@ -33,4 +33,6 @@
            #:ms-write-byte
            #:ms-read-sequence
            #:ms-write-sequence
-           #:ms-whole-data))
+           #:ms-whole-data
+	   #:plist-p
+	   #:plist-to-alist))

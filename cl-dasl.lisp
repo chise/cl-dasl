@@ -2,7 +2,8 @@
 
 (in-package #:cl-dasl)
 
-(named-readtables:defreadtable dasl (:case :preserve))
+;;(named-readtables:defreadtable dasl (:case :preserve))
+(named-readtables:defreadtable dasl (:case :invert))
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (deftype raw-data () '(simple-array (unsigned-byte 8) 1))
@@ -58,7 +59,7 @@ supports it if it encounters the tags.")
   "Bind this to :list if you want arrays to decode as lists. Note that
 the empty array will be NIL in this case.")
 
-(defparameter *dictionary-format* :hash
+(defparameter *dictionary-format* :alist
   "How to decode dictionaries. Supports :HASH, :ALIST or :PLIST. When
 :HASH (the default), dictionaries are decoded into hash tables using
 #'EQ as test when *string-to-symbol* is bound, or #'EQUAL otherwise.")
@@ -96,3 +97,22 @@ alone.")
 (ieee-floats:make-float-converters encode-float16 decode-float16 5 10 nil)
 (import '(ieee-floats:encode-float32 ieee-floats:decode-float32
           ieee-floats:encode-float64 ieee-floats:decode-float64))
+
+(defun plist-p (obj)
+  (and (consp obj)
+       (keywordp (car obj))
+       (consp (cdr obj))
+       (or (plist-p (cddr obj))
+	   (null (cddr obj)))))
+
+(defun plist-to-alist (plist)
+  (let (key)
+    (mapcan (lambda (item)
+	      (if key
+		  (prog1
+		      (list (cons key item))
+		    (setq key nil))
+		  (progn
+		    (setq key item)
+		    nil)))
+	    plist)))

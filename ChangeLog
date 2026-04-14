@@ -1,3 +1,19 @@
+2026-04-12  MORIOKA Tomohiko  <tomo.git@chise.org>
+
+	* cl-dasl.lisp (readtable `dasl'): Use :invert instead of
+	:preserve.
+	(*dictionary-format*): Use :alist instead of :hash as the default value.
+	(plist-p): New function.
+	(plist-to-alist): New function.
+
+2026-04-10  MORIOKA Tomohiko  <tomo.git@chise.org>
+
+	* encode.lisp (encode-alist): Use "null" instead of "nil" if a key
+	is nil.
+	(encode-list): Treat plist as the same as alist.
+
+	* package.lisp (export): Add `plist-p' and `plist-to-alist'.
+
 2026-04-01  MORIOKA Tomohiko  <tomo.git@chise.org>
 
 	* cl-dasl.lisp (*use-sharedrefs*): Changed to nil.

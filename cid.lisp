@@ -1,11 +1,5 @@
 (in-package :cl-dasl)
 
-(defun dCBOR42-decode (data)
-  (let ((*custom-tag-reader* #'decode-ipld-link)
-	(*dictionary-format* :alist))
-    (decode data)))
-
-
 (defun bytes-to-base32-with-no-padding (some-bytes)
   "Like bytes-to-base32, but return base32 string without padding"
   (let* ((word-count (ceiling (* 8 (length some-bytes)) 5) )

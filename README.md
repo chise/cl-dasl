@@ -46,7 +46,7 @@ NIL
 ## Usage
 
 Currently, this package only provides CID generator, CID converter and
-dCROR42 decoder.
+[DRISL](https://dasl.ing/drisl.html) (dCROR42) encoder/decoder.
 ```
 (dasl:generate-cid '(("Hello" . "world")))
 -> "bafyreienby2jplt24irbffyiswxk2lhnpczmszpy3d2oi7niyaqltexipe"
@@ -65,16 +65,14 @@ dCROR42 decoder.
 -> "bafyreienby2jplt24irbffyiswxk2lhnpczmszpy3d2oi7niyaqltexipe"
 ```
 
-This package uses cbor.lisp to encode as dCBOR42, so please use
-cbor:encode as dCROR42 encoder.
 ```
-(cbor:encode '(("Hello" . "world")))
+(dasl:encode '(("Hello" . "world")))
 -> #(161 101 72 101 108 108 111 101 119 111 114 108 100)
 ```
 
 ```
 (ql:quickload :cl-ipfs-api2)
-(dasl:dCBOR42-decode
+(dasl:decode
   (map '(vector (unsigned-byte 8)) #'char-code
        (cl-ipfs-api2:block-get
 	"bafyreihf24trtqtltseiuujai2esremtihbcfjvqpn3jt2xhz6xpo3iio4")))

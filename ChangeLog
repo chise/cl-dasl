@@ -1,3 +1,11 @@
+2026-04-16  MORIOKA Tomohiko  <tomo.git@chise.org>
+
+	* README.md: update.
+
+	* cid.lisp (dCBOR42-decode): Deleted.
+
+	* decode.lisp (read-tagged): Fixed.
+
 2026-04-12  MORIOKA Tomohiko  <tomo.git@chise.org>
 
 	* cl-dasl.lisp (readtable `dasl'): Use :invert instead of
